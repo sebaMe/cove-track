@@ -1,15 +1,34 @@
-import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
-import { createHead } from '@vueuse/head'
-import { store } from './store'
-import './assets/index.postcss'
+import './index.css'
 
-const head = createHead()
-const app = createApp(App)
+import { createApp } from 'vue'
+import { router } from './router'
+import { createPinia } from 'pinia'
 
-app.use(store)
-app.use(router)
-app.use(head)
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+  faVirus,
+  faGlobe,
+  faSearch,
+  faSync,
+  faUsers,
+  faChartLine,
+  faSkullCrossbones,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-app.mount('#app')
+library.add(
+  faVirus,
+  faGlobe,
+  faSearch,
+  faSync,
+  faUsers,
+  faChartLine,
+  faSkullCrossbones
+)
+
+createApp(App)
+  .use(router)
+  .use(createPinia)
+  .component('font-awesome-icon', FontAwesomeIcon)
+  .mount('#app')

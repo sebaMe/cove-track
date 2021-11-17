@@ -1,37 +1,38 @@
-const plugin = require('tailwindcss/plugin')
-// const defaultTheme = require('tailwindcss/defaultTheme')
-
 module.exports = {
-  mode: 'jit',
-  purge: {
-    enabled: process.env.NODE_ENV === 'production',
-    content: ['./index.html', './src/**/*.{vue,ts}'],
+  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  darkMode: false,
+  theme: {
+    colors: {
+      primary: {
+        light: '#BADFE7',
+        DEFAULT: '#6FB3B8',
+        dark: '#388087',
+      },
+      secondary: {
+        DEFAULT: '#C2EDCE',
+      },
+      light: {
+        light: '#FFFFFF',
+        DEFAULT: '#F6F6F2',
+      },
+      dark: {
+        DEFAULT: '#000000',
+      },
+      info: '#0099CC',
+      success: '#007E33',
+      warning: '#FF8800',
+      danger: '#CC0000',
+    },
+    extend: {
+      fontFamily: {
+        sans: ['roboto'],
+        serif: ['lato'],
+        headline: ['roboto-bold'],
+      },
+    },
   },
-  // theme: {
-  //   extend: {
-  //     // here's how to extend fonts if needed
-  //     fontFamily: {
-  //       sans: [...defaultTheme.fontFamily.sans],
-  //     },
-  //   },
-  // },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/line-clamp'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/forms'),
-    plugin(function ({ addVariant, e, postcss }) {
-      addVariant('firefox', ({ container, separator }) => {
-        const isFirefoxRule = postcss.atRule({
-          name: '-moz-document',
-          params: 'url-prefix()',
-        })
-        isFirefoxRule.append(container.nodes)
-        container.append(isFirefoxRule)
-        isFirefoxRule.walkRules((rule) => {
-          rule.selector = `.${e(`firefox${separator}${rule.selector.slice(1)}`)}`
-        })
-      })
-    }),
-  ],
+  variants: {
+    extend: {},
+  },
+  plugins: [],
 }
